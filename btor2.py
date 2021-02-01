@@ -1985,13 +1985,10 @@ def bmc2model(ts: Ts, k: int) -> (z3.Solver.model, int ):
     count = 0
 
     while count < k:
-        #print("iteration ", count)
         count += 1
         p = fresh( z3.BoolSort(ctx=init.ctx) )
         solver.add( z3.Implies( p, goal ))
         if z3.sat == solver.check( p ):
-            #print( solver )
-            #print ( solver.model() )
             return ( solver.model(), count )
         solver.add( trans )
         ys = [fresh( x.sort() ) for x in xs]
